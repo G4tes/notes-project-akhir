@@ -1,6 +1,6 @@
 import CardNotes from "@/components/notes/card";
 import SearchNotes from "@/components/notes/search";
-
+import { useState, useEffect } from "react";
 const notesList = [
   {
     title: "Blanditiis ut quia ut cupiditate nemo.",
@@ -76,14 +76,20 @@ const notesList = [
 ];
 
 function Home() {
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    console.log(search);
+  }, [search]);
+
   return (
     <div className="w-full h-[93vh] flex flex-col gap-4 ">
       <div className="flex flex-row justify-center  ">
-        <SearchNotes />
+        <SearchNotes setSearch={setSearch} />
       </div>
 
       <h1 className="text-4xl font-semibold text-white">Notes</h1>
-      <CardNotes notesList={notesList} />
+      <CardNotes notesList={notesList} search={search} />
     </div>
   );
 }
