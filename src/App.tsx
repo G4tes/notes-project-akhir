@@ -11,9 +11,12 @@ function App() {
           <Sidebar />
         </div>
       </div>
-      {/* <div className="w-full py-6">
-        <Home />
-      </div> */}
+      <div className="w-full py-6 text-white flex flex-row">
+        <div className="w-1/2 ">
+          <Home />
+        </div>
+        <div className="w-1/2 bg-red-400">asdas</div>
+      </div>
     </div>
   );
 }
