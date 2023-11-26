@@ -1,4 +1,5 @@
 import "./App.css";
+import Message from "./components/notes/message";
 import Sidebar from "./components/sidebar/sidebar";
 import Home from "./pages/Home";
 
@@ -15,7 +16,9 @@ function App() {
         <div className="w-1/2 ">
           <Home />
         </div>
-        <div className="w-1/2 bg-red-400">asdas</div>
+        <div className="w-1/2">
+          <Message />
+        </div>
       </div>
     </div>
   );

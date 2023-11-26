@@ -6,7 +6,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 
-import { relativeDate } from "@/lib/relativeDate";
+import { filterLatestDates, relativeDate } from "@/lib/relativeDate";
 import { truncated } from "@/lib/truncated";
 
 interface CardProps {
@@ -25,12 +25,13 @@ function CardNotes({ notesList, search }: CardProps) {
       return note.title.toLowerCase().includes(search!.toLowerCase());
     });
   }
-  console.log(notesList);
+
+  const sortDateToNewest = filterLatestDates(notesList);
   return (
     <div className="overflow-y-auto h-full">
       {notesList.length === 0
         ? "Not found"
-        : notesList.map((note) => {
+        : sortDateToNewest.map((note) => {
             const relativeDateString = relativeDate(note.createdAt);
             const truncatedContent = truncated(note.content, 150);
 
