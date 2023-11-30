@@ -16,8 +16,14 @@ export function relativeDate(date: string) {
 }
 
 export function filterLatestDates(notes: Note[]) {
-  const sortedNotes = notes.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+  if (!Array.isArray(notes) || notes.length === 0) {
+    return notes;
+  }
+  const sortedNotes = notes
+    .filter((note) => note.createdAt)
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
   return sortedNotes;
 }
