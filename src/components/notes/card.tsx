@@ -1,13 +1,7 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 
-import { filterLatestDates, relativeDate } from "@/lib/relativeDate";
-import { truncated } from "@/lib/truncated";
+import { filterLatestDates, relativeDate } from '@/lib/relativeDate';
+import { truncated } from '@/lib/truncated';
 
 interface CardProps {
   search?: string;
@@ -20,7 +14,7 @@ interface CardProps {
 }
 
 function CardNotes({ notesList, search }: CardProps) {
-  if (search !== "") {
+  if (search !== '') {
     notesList = notesList?.filter((note) => {
       return note.title.toLowerCase().includes(search!.toLowerCase());
     });
@@ -31,7 +25,7 @@ function CardNotes({ notesList, search }: CardProps) {
   return (
     <div className="overflow-y-auto h-full">
       {notesList.length === 0
-        ? "Not found"
+        ? 'Not found'
         : sortDateToNewest.map((note, id) => {
             const relativeDateString = relativeDate(note.createdAt);
             const truncatedContent = truncated(note.content, 150);
@@ -41,9 +35,7 @@ function CardNotes({ notesList, search }: CardProps) {
                 <Card className="mr-4 h-48 mt-3 rounded-3xl flex flex-col justify-between bg-zinc-200">
                   <CardHeader>
                     <CardTitle>{note.title}</CardTitle>
-                    <CardDescription className="pt-2">
-                      {truncatedContent}
-                    </CardDescription>
+                    <CardDescription className="pt-2">{truncatedContent}</CardDescription>
                   </CardHeader>
 
                   <CardFooter>

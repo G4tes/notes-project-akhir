@@ -1,7 +1,7 @@
-import "./App.css";
-import Message from "./components/notes/message";
-import Sidebar from "./components/sidebar/sidebar";
-import Home from "./pages/Home";
+import './App.css';
+import Message from './components/notes/message';
+import Sidebar from './components/sidebar/sidebar';
+import Home from './pages/Home';
 
 function App() {
   return (

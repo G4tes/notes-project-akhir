@@ -1,5 +1,5 @@
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 interface Note {
   title: string;
@@ -21,9 +21,6 @@ export function filterLatestDates(notes: Note[]) {
   }
   const sortedNotes = notes
     .filter((note) => note.createdAt)
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   return sortedNotes;
 }
