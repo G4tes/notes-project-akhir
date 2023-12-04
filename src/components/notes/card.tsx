@@ -29,13 +29,16 @@ function CardNotes({ notesList, search }: CardProps) {
         : sortDateToNewest.map((note, id) => {
             const relativeDateString = relativeDate(note.createdAt);
             const truncatedContent = truncated(note.content, 150);
+            const truncatedTitle = truncated(note.title, 15);
 
             return (
               <div key={id}>
                 <Card className="mr-4 h-48 mt-3 rounded-3xl flex flex-col justify-between bg-zinc-200">
                   <CardHeader>
-                    <CardTitle>{note.title}</CardTitle>
-                    <CardDescription className="pt-2">{truncatedContent}</CardDescription>
+                    <CardTitle>{truncatedTitle}</CardTitle>
+                    <CardDescription className="pt-2 overflow-hidden h-14">
+                      {truncatedContent.replace(/<br\s*\/?>/g, ' ')}
+                    </CardDescription>
                   </CardHeader>
 
                   <CardFooter>

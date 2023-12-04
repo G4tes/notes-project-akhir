@@ -1,65 +1,14 @@
-import { ArrowDownToLine, MoreHorizontal, Pin, Plus } from 'lucide-react';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
-import { DialogClose } from '@radix-ui/react-dialog';
-import { useToast } from '../ui/use-toast';
+import { ArrowDownToLine, MoreHorizontal, Pin } from 'lucide-react';
+import { useState } from 'react';
+import FooterMessage from './footer';
 
 function Message() {
-  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <div className="flex flex-col-reverse justify-between w-full h-[94vh]">
       {/* footer */}
-      <div className="flex flex-row justify-end p-4 gap-3 mt-4">
-        <div className="w-10 h-10 rounded-full flex flex-row items-center justify-center bg-white">
-          <Dialog>
-            <DialogTrigger>
-              <Plus className="text-black" />
-            </DialogTrigger>
-            <DialogContent className="w-full">
-              <DialogHeader className="flex flex-col items-center gap-4">
-                <DialogTitle className="h-1 text-2xl">SlackNote</DialogTitle>
-                <DialogDescription className="pt-4 text-center w-[45%]">
-                  Jurnal Harianmu Dimulai di Sini, Tulis Catatanmu Sekarang!
-                </DialogDescription>
-                <form
-                  onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-                    e.preventDefault();
-                    const title = (e.target as HTMLFormElement).elements[0] as HTMLInputElement;
-                    const content = (e.target as HTMLFormElement).elements[1] as HTMLTextAreaElement;
-                    console.log(title.value, 'asd');
-                    console.log(content.value);
-
-                    toast({
-                      title: 'Scheduled: Catch up ',
-                      description: 'Friday, February 10, 2023 at 5:57 PM',
-                      duration: 1500
-                    });
-
-                    e.currentTarget.reset();
-                  }}
-                >
-                  <input type="text" className="w-full h-10 rounded-lg px-4 bg-zinc-200" placeholder="Title" />
-                  <textarea
-                    className="w-full h-32 rounded-lg px-4 py-2 mt-4 bg-zinc-200"
-                    placeholder="Content"
-                  ></textarea>
-
-                  <div className="w-full flex flex-row justify-end gap-2 mt-4">
-                    <DialogClose className="w-20 h-10 rounded-lg bg-zinc-200" type="reset">
-                      Cancel
-                    </DialogClose>
-                    <DialogClose className="w-20 h-10 rounded-lg bg-zinc-200" type="submit">
-                      Save
-                    </DialogClose>
-                  </div>
-                </form>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
-        </div>
-        {/* <button className="w-10 h-10 rounded-full flex flex-row items-center justify-center bg-green-400">
-          <Pencil />
-        </button> */}
-      </div>
+      <FooterMessage isLoading={isLoading} setIsLoading={setIsLoading} />
       {/* main */}
       <div className="flex flex-col  w-full gap-4">
         <div className="flex flex-row justify-between px-8 ">
