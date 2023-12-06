@@ -2,6 +2,9 @@ import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '@/comp
 
 import { filterLatestDates, relativeDate } from '@/lib/relativeDate';
 import { truncated } from '@/lib/truncated';
+import { handleIndexOpen } from '@/stores/slices/notesSlice';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface CardProps {
   search?: string;
@@ -20,6 +23,30 @@ function CardNotes({ notesList, search }: CardProps) {
     });
   }
 
+  const [openedNoteIndex, setOpenedNoteIndex] = useState(-1);
+  const dispatch = useDispatch();
+  const handleNoteClick = (index: number) => {
+    setTimeout(() => {
+      if (index === openedNoteIndex) {
+        setOpenedNoteIndex(-1);
+      } else {
+        setOpenedNoteIndex(index);
+      }
+    }, 300);
+  };
+
+  useEffect(() => {
+    dispatch(handleIndexOpen(openedNoteIndex));
+  }, [openedNoteIndex]);
+
+  useEffect(() => {
+    if (openedNoteIndex !== -1) {
+      const final = openedNoteIndex + 1;
+      setOpenedNoteIndex(final);
+      dispatch(handleIndexOpen(final));
+    }
+  }, [notesList.length]);
+
   const sortDateToNewest = filterLatestDates(notesList);
 
   return (
@@ -33,7 +60,12 @@ function CardNotes({ notesList, search }: CardProps) {
 
             return (
               <div key={id}>
-                <Card className="mr-4 h-48 mt-3 rounded-3xl flex flex-col justify-between bg-zinc-200">
+                <Card
+                  onClick={() => handleNoteClick(id)}
+                  className={`cursor-pointer mr-4 h-48 mt-3 rounded-3xl flex flex-col justify-between ${
+                    openedNoteIndex == id ? 'bg-zinc-700 text-white' : 'bg-zinc-200 '
+                  }`}
+                >
                   <CardHeader>
                     <CardTitle>{truncatedTitle}</CardTitle>
                     <CardDescription className="pt-2 overflow-hidden h-14">
