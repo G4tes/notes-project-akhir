@@ -5,7 +5,6 @@ interface Note {
   title: string;
   content: string;
   createdAt: string;
-  isOpen: boolean;
 }
 
 dayjs.extend(relativeTime);
