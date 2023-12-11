@@ -1,6 +1,7 @@
-import { Search } from "lucide-react";
-import { Input } from "../ui/input";
-import debounce from "debounce";
+import { Search } from 'lucide-react';
+import { Input } from '../ui/input';
+import debounce from 'debounce';
+
 interface SearchNotesProps {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 }

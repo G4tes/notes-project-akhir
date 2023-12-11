@@ -10,27 +10,27 @@ const encryptor = encryptTransform({
   secretKey: '73e358b5a93496aa11d8a2276e035eae90764c1aa3e9551f8e2e78b0eb3a0b10', // key untuk enkripsi
   onError: function (error) {
     console.error('Error while encrypting:', error);
-  },
+  }
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  transforms: [encryptor],
+  transforms: [encryptor]
 };
 
 const persistedReducerNotes = persistReducer(persistConfig, notesSlice.reducer);
 
 export const store = configureStore({
   reducer: {
-    notesSlice: persistedReducerNotes,
+    notesSlice: persistedReducerNotes
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    })
 });
 
 export const persistor = persistStore(store);

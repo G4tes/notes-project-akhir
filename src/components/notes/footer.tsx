@@ -2,7 +2,7 @@ import React from 'react';
 import { Check, Plus } from 'lucide-react';
 
 import { addNote } from '@/stores/slices/notesSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { useToast } from '../ui/use-toast';
@@ -11,11 +11,29 @@ interface FooterMessageProps {
   setIsLoading: (value: boolean) => void;
   isLoading: boolean;
 }
+type Note = {
+  title: string;
+  content: string;
+  createdAt: string;
+};
+
+type notesState = {
+  notesSlice: {
+    notes: Note[];
+    searchNotes: boolean;
+    loading: boolean;
+    error: null | string;
+    indexOpen: number;
+  };
+};
 
 function FooterMessage({ setIsLoading, isLoading }: FooterMessageProps) {
   const { toast } = useToast();
 
   const dispatch = useDispatch();
+
+  const dataNotes = useSelector((state: notesState) => state.notesSlice.notes);
+
   return (
     <div className="flex flex-row justify-end p-4 gap-3 mt-4">
       <div className="w-10 h-10 rounded-full flex flex-row items-center justify-center bg-white">
@@ -36,6 +54,7 @@ function FooterMessage({ setIsLoading, isLoading }: FooterMessageProps) {
                   const content = (e.target as HTMLFormElement).elements[1] as HTMLTextAreaElement;
 
                   const data = {
+                    id: dataNotes.length,
                     title: title.value,
                     content: content.value.replace(/\n/g, '<br />')
                   };
@@ -43,6 +62,7 @@ function FooterMessage({ setIsLoading, isLoading }: FooterMessageProps) {
                   console.log(data);
 
                   setIsLoading(true);
+                  // console.log(handleIndexOpen(-5));
 
                   if (data.title === '' || data.content === '') {
                     toast({
@@ -71,12 +91,12 @@ function FooterMessage({ setIsLoading, isLoading }: FooterMessageProps) {
                   } else {
                     setTimeout(() => {
                       setIsLoading(false);
+
                       console.log(
                         dispatch(
                           addNote({
                             ...data,
-                            createdAt: Date.now(),
-                            isOpen: false
+                            createdAt: Date.now()
                           })
                         )
                       );
@@ -115,7 +135,7 @@ function FooterMessage({ setIsLoading, isLoading }: FooterMessageProps) {
 
                 <div className="w-full flex flex-row justify-end gap-2 mt-4">
                   <DialogClose className="w-20 h-10 rounded-lg bg-zinc-200" type="reset">
-                    Cancel
+                    Back
                   </DialogClose>
                   <DialogClose disabled={isLoading} className="w-20 h-10 rounded-lg bg-zinc-200" type="submit">
                     Save

@@ -1,20 +1,9 @@
-import {
-  Trash,
-  FileDown,
-  Copy,
-  Code2,
-  HelpCircle,
-  Volume2,
-  Hash,
-  StickyNote,
-  PlusCircle,
-} from "lucide-react";
-import React from "react";
+import { Trash, FileDown, Copy, Code2, HelpCircle, Volume2, Hash, StickyNote, PlusCircle } from 'lucide-react';
 
 function Sidebar() {
   return (
     <div className="text-white h-full flex flex-col justify-between ">
-      <div className="w-full overflow-y-auto h-[80%] ">
+      <div className="w-full overflow-y-auto h-[80%]">
         <div className="my-6 flex flex-col gap-3">
           <div className="flex flex-row items-center mt-2">
             <Copy height={18} width={18} />
@@ -53,7 +42,7 @@ function Sidebar() {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-4 flex flex-row items-center my-3">
+      <div className=" absolute bottom-4 flex flex-row items-center my-3">
         <PlusCircle height={18} width={18} />
         <div className="ml-1.5">New Page</div>
       </div>
